@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#02040a">
+
+<title>STARK Wallet</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html,body{
+    margin:0;
+    min-height:100%;
+    background:#02040a;
+    color:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+body{
+    min-height:100vh;
+}
+
+.space{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:#02040a;
+}
+
+.space:before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background-image:
+        radial-gradient(circle,#fff .8px,transparent 1.4px);
+
+    background-size:79px 91px;
+    opacity:.42;
+}
+
+.space:after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background-image:
+        radial-gradient(circle,#fff .7px,transparent 1.2px);
+
+    background-size:137px 151px;
+    opacity:.22;
+}
+
+.app{
+    width:min(440px,92%);
+    margin:auto;
+    padding:28px 0 45px;
+}
+
+.logo{
+    text-align:center;
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:6px;
+}
+
+.sub{
+    text-align:center;
+    color:#68748b;
+    font-size:10px;
+    letter-spacing:2px;
+    margin:5px 0 30px;
+}
+
+.card{
+    position:relative;
+
+    background:rgba(10,14,24,.94);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    padding:24px;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.48);
+
+    overflow:hidden;
+}
+
+.glow{
+    position:absolute;
+
+    width:250px;
+    height:130px;
+
+    left:50%;
+    top:-85px;
+
+    transform:translateX(-50%);
+
+    background:#356bff;
+
+    filter:blur(65px);
+
+    opacity:.22;
+
+    pointer-events:none;
+}
+
+.screen{
+    display:none;
+}
+
+.screen.active{
+    display:block;
+}
+
+.status{
+    text-align:center;
+
+    color:#61e3a0;
+
+    font-size:11px;
+
+    margin-bottom:13px;
+}
+
+h1{
+    position:relative;
+
+    text-align:center;
+
+    font-size:24px;
+
+    margin:0 0 8px;
+}
+
+.desc{
+    position:relative;
+
+    text-align:center;
+
+    color:#747e93;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+    margin:0 0 24px;
+}
+
+.user{
+    font-size:15px;
+
+    font-weight:700;
+
+    text-align:center;
+
+    margin:5px 0 22px;
+}
+
+button{
+    display:block;
+
+    width:100%;
+
+    height:54px;
+
+    border:0;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4c80ff,
+            #2556e8
+        );
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+button:active{
+    transform:scale(.985);
+}
+
+.words{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:8px;
+
+    margin:18px 0;
+}
+
+.word{
+    padding:12px 4px;
+
+    text-align:center;
+
+    background:#070b13;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    border-radius:11px;
+
+    font-size:11px;
+}
+
+.word i{
+    display:block;
+
+    font-style:normal;
+
+    color:#59657a;
+
+    font-size:9px;
+
+    margin-bottom:4px;
+}
+
+.warning{
+    padding:12px;
+
+    border-radius:12px;
+
+    background:
+        rgba(255,175,50,.07);
+
+    color:#d4a962;
+
+    font-size:11px;
+
+    line-height:1.5;
+
+    margin-bottom:15px;
+}
+
+.walletHeader{
+    text-align:center;
+}
+
+.balance{
+    font-size:40px;
+
+    font-weight:900;
+
+    margin:7px 0 3px;
+}
+
+.muted{
+    color:#69748b;
+
+    font-size:11px;
+}
+
+.address{
+    font-family:monospace;
+
+    word-break:break-all;
+
+    background:#070b13;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    border-radius:13px;
+
+    padding:13px;
+
+    margin-top:9px;
+
+    color:#78a0ff;
+
+    font-size:11px;
+}
+
+.asset{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:16px 0;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.06);
+}
+
+.asset:last-child{
+    border-bottom:0;
+}
+
+.left{
+    display:flex;
+
+    gap:12px;
+
+    align-items:center;
+}
+
+.coin{
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#c70019;
+
+    font-weight:900;
+}
+
+.name{
+    font-weight:700;
+}
+
+.small{
+    font-size:10px;
+
+    color:#69748b;
+
+    margin-top:3px;
+}
+
+.note{
+    margin-top:15px;
+
+    text-align:center;
+
+    color:#59657a;
+
+    font-size:10px;
+
+    line-height:1.5;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="space"></div>
+
+<div class="app">
+
+<div class="logo">
+    STARK
+</div>
+
+<div class="sub">
+    WALLET · TESTNET
+</div>
+
+
+<!-- WELCOME -->
+
+<section id="welcome" class="screen active">
+
+<div class="card">
+
+<div class="glow"></div>
+
+<div class="status">
+    ● TELEGRAM MINI APP
+</div>
+
+<h1>
+    Добро пожаловать
+</h1>
+
+<p class="desc">
+    Это первый рабочий экран STARK Wallet.
+</p>
+
+<div
+    id="telegramUser"
+    class="user"
+>
+    @user
+</div>
+
+<button
+    id="createBtn"
+    type="button"
+>
+    Создать кошелёк
+</button>
+
+<div class="note">
+    На этом этапе кошелёк демонстрационный.
+    Реальные средства не используются.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SEED -->
+
+<section id="seed" class="screen">
+
+<div class="card">
+
+<h1>
+    Твоя seed-фраза
+</h1>
+
+<p class="desc">
+    Запиши 12 слов в правильном порядке.
+    Никому их не показывай.
+</p>
+
+<div
+    id="words"
+    class="words"
+></div>
+
+<div class="warning">
+
+⚠️ Это тестовая фраза интерфейса.
+Она пока не используется для реального
+блокчейн-кошелька.
+
+</div>
+
+<button
+    id="confirmBtn"
+    type="button"
+>
+    Я сохранил 12 слов
+</button>
+
+</div>
+
+</section>
+
+
+<!-- WALLET -->
+
+<section id="wallet" class="screen">
+
+<div class="card walletHeader">
+
+<div class="muted">
+    TOTAL BALANCE
+</div>
+
+<div class="balance">
+    $0.00
+</div>
+
+<div class="muted">
+    TESTNET
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="muted">
+    WALLET ADDRESS
+</div>
+
+<div
+    id="address"
+    class="address"
+>
+    Генерация...
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="muted">
+    ASSETS
+</div>
+
+
+<div class="asset">
+
+<div class="left">
+
+<div class="coin">
+    T
+</div>
+
+<div>
+
+<div class="name">
+    TRON
+</div>
+
+<div class="small">
+    TRX · TESTNET
+</div>
+
+</div>
+
+</div>
+
+<strong>
+    0.000000
+</strong>
+
+</div>
+
+
+<div class="asset">
+
+<div class="left">
+
+<div class="coin">
+    $
+</div>
+
+<div>
+
+<div class="name">
+    Tether USD
+</div>
+
+<div class="small">
+    USDT · TRC-20 TESTNET
+</div>
+
+</div>
+
+</div>
+
+<strong>
+    0.000000
+</strong>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="status">
+    ● INTERFACE READY
+</div>
+
+<div class="note">
+    Следующим этапом подключим настоящую
+    генерацию TRON testnet-адреса.
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+
+<!-- TELEGRAM -->
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+
+<script>
+
+(function(){
+
+"use strict";
+
+
+var tg =
+    window.Telegram &&
+    window.Telegram.WebApp
+        ? window.Telegram.WebApp
+        : null;
+
+
+if(tg){
+
+    tg.ready();
+
+    tg.expand();
+
+}
+
+
+/* ПЕРЕКЛЮЧЕНИЕ ЭКРАНОВ */
+
+function show(id){
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(function(screen){
+
+            screen.classList.remove("active");
+
+        });
+
+
+    document
+        .getElementById(id)
+        .classList.add("active");
+
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* ПОЛЬЗОВАТЕЛЬ TELEGRAM */
+
+function getTelegramName(){
+
+    if(
+        tg &&
+        tg.initDataUnsafe &&
+        tg.initDataUnsafe.user
+    ){
+
+        var user =
+            tg.initDataUnsafe.user;
+
+
+        if(user.username){
+
+            return "@" + user.username;
+
+        }
+
+
+        if(user.first_name){
+
+            return user.first_name;
+
+        }
+
+    }
+
+
+    return "@user";
+
+}
+
+
+/* 12 ТЕСТОВЫХ СЛОВ */
+
+function createDemoWords(){
+
+    var words = [
+
+        "galaxy",
+        "orbit",
+        "silver",
+        "rocket",
+        "future",
+        "quantum",
+        "planet",
+        "cosmic",
+        "vector",
+        "signal",
+        "stellar",
+        "matrix"
+
+    ];
+
+
+    var box =
+        document.getElementById("words");
+
+
+    box.innerHTML = "";
+
+
+    words.forEach(
+        function(word,index){
+
+            var element =
+                document.createElement("div");
+
+
+            element.className =
+                "word";
+
+
+            element.innerHTML =
+                "<i>" +
+                (index + 1) +
+                "</i>" +
+                word;
+
+
+            box.appendChild(element);
+
+        }
+    );
+
+}
+
+
+/* ТЕСТОВЫЙ АДРЕС */
+
+function createDemoAddress(){
+
+    var chars =
+        "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+
+
+    var result = "T";
+
+
+    for(
+        var i = 0;
+        i < 33;
+        i++
+    ){
+
+        result +=
+            chars[
+                Math.floor(
+                    Math.random() *
+                    chars.length
+                )
+            ];
+
+    }
+
+
+    return result;
+
+}
+
+
+/* ПОКАЗЫВАЕМ USERNAME */
+
+document
+    .getElementById("telegramUser")
+    .textContent =
+        getTelegramName();
+
+
+/* СОЗДАТЬ КОШЕЛЁК */
+
+document
+    .getElementById("createBtn")
+    .addEventListener(
+        "click",
+        function(){
+
+            createDemoWords();
+
+            show("seed");
+
+        }
+    );
+
+
+/* ПОДТВЕРДИТЬ SEED */
+
+document
+    .getElementById("confirmBtn")
+    .addEventListener(
+        "click",
+        function(){
+
+            document
+                .getElementById("address")
+                .textContent =
+                    createDemoAddress();
+
+
+            show("wallet");
+
+        }
+    );
+
+
+})();
+
+</script>
+
+</body>
+</html>
