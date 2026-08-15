@@ -1,0 +1,1993 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta name="theme-color" content="#02040a">
+
+<title>STARK Wallet</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    margin:0;
+    min-height:100%;
+
+    background:#02040a;
+    color:#fff;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+body{
+    min-height:100vh;
+}
+
+
+/* =========================
+   SPACE
+========================= */
+
+.space{
+    position:fixed;
+    inset:0;
+
+    z-index:-1;
+
+    background:#02040a;
+}
+
+.space:before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.9) .8px,
+            transparent 1.4px
+        );
+
+    background-size:79px 91px;
+
+    opacity:.42;
+}
+
+.space:after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background-image:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.8) .7px,
+            transparent 1.2px
+        );
+
+    background-size:137px 151px;
+
+    opacity:.22;
+}
+
+
+/* =========================
+   APP
+========================= */
+
+.app{
+    width:min(440px,92%);
+
+    margin:auto;
+
+    padding:
+        28px
+        0
+        50px;
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.logo{
+    text-align:center;
+
+    font-size:28px;
+
+    font-weight:900;
+
+    letter-spacing:6px;
+}
+
+.sub{
+    text-align:center;
+
+    color:#68748b;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    margin:
+        5px
+        0
+        30px;
+}
+
+
+/* =========================
+   SCREENS
+========================= */
+
+.screen{
+    display:none;
+}
+
+.screen.active{
+    display:block;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card{
+    position:relative;
+
+    background:
+        rgba(10,14,24,.95);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    padding:24px;
+
+    margin-bottom:14px;
+
+    box-shadow:
+        0 25px 80px
+        rgba(0,0,0,.48);
+
+    overflow:hidden;
+}
+
+
+/* =========================
+   TITLES
+========================= */
+
+h1{
+    text-align:center;
+
+    font-size:24px;
+
+    margin:
+        0
+        0
+        8px;
+}
+
+.desc{
+    text-align:center;
+
+    color:#747e93;
+
+    font-size:13px;
+
+    line-height:1.55;
+
+    margin:
+        0
+        0
+        23px;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status{
+    text-align:center;
+
+    color:#61e3a0;
+
+    font-size:11px;
+
+    margin-bottom:14px;
+}
+
+
+/* =========================
+   USER
+========================= */
+
+.user{
+    text-align:center;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    margin:
+        5px
+        0
+        22px;
+}
+
+
+/* =========================
+   INPUT
+========================= */
+
+.input{
+    width:100%;
+
+    height:52px;
+
+    padding:
+        0
+        15px;
+
+    border-radius:14px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.09);
+
+    outline:none;
+
+    background:#070b13;
+
+    color:#fff;
+
+    font-size:14px;
+
+    margin-bottom:11px;
+}
+
+.input:focus{
+    border-color:#426fff;
+}
+
+.input::placeholder{
+    color:#59657a;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+button{
+    width:100%;
+
+    height:54px;
+
+    border:0;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4c80ff,
+            #2556e8
+        );
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    -webkit-tap-highlight-color:
+        transparent;
+}
+
+button:active{
+    transform:scale(.985);
+}
+
+button:disabled{
+    opacity:.5;
+}
+
+
+/* =========================
+   SECONDARY BUTTON
+========================= */
+
+.secondary{
+    background:#101624;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error{
+    display:none;
+
+    padding:12px;
+
+    margin-bottom:12px;
+
+    border-radius:12px;
+
+    background:
+        rgba(255,70,90,.08);
+
+    border:
+        1px solid
+        rgba(255,70,90,.12);
+
+    color:#ff7b87;
+
+    font-size:11px;
+
+    line-height:1.45;
+}
+
+
+/* =========================
+   SEED GRID
+========================= */
+
+.seed-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:8px;
+
+    margin:
+        18px
+        0;
+}
+
+.seed-word{
+    min-height:58px;
+
+    padding:9px 5px;
+
+    background:#070b13;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    border-radius:11px;
+
+    text-align:center;
+
+    font-size:11px;
+}
+
+.seed-number{
+    display:block;
+
+    color:#59657a;
+
+    font-size:9px;
+
+    margin-bottom:4px;
+}
+
+
+/* =========================
+   WARNING
+========================= */
+
+.warning{
+    padding:13px;
+
+    border-radius:13px;
+
+    background:
+        rgba(255,174,50,.07);
+
+    color:#d5aa65;
+
+    font-size:11px;
+
+    line-height:1.55;
+
+    margin-bottom:14px;
+}
+
+
+/* =========================
+   ADDRESS
+========================= */
+
+.muted{
+    color:#69748b;
+
+    font-size:10px;
+
+    letter-spacing:.5px;
+}
+
+.address{
+    font-family:monospace;
+
+    word-break:break-all;
+
+    background:#070b13;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    border-radius:13px;
+
+    padding:15px;
+
+    margin-top:9px;
+
+    color:#78a0ff;
+
+    font-size:12px;
+
+    line-height:1.5;
+}
+
+
+/* =========================
+   BALANCE
+========================= */
+
+.balance-box{
+    text-align:center;
+}
+
+.balance-label{
+    color:#69748b;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+}
+
+.balance{
+    font-size:42px;
+
+    font-weight:900;
+
+    margin:
+        7px
+        0
+        2px;
+}
+
+.network{
+    color:#61e3a0;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+}
+
+
+/* =========================
+   ASSETS
+========================= */
+
+.asset{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:
+        16px
+        0;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.06);
+}
+
+.asset:last-child{
+    border-bottom:0;
+}
+
+.asset-left{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+.coin{
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-weight:900;
+
+    background:#c91a2d;
+}
+
+.asset-name{
+    font-size:14px;
+
+    font-weight:700;
+}
+
+.asset-small{
+    color:#69748b;
+
+    font-size:10px;
+
+    margin-top:3px;
+}
+
+
+/* =========================
+   LOADER
+========================= */
+
+.loader{
+    width:25px;
+    height:25px;
+
+    margin:
+        0
+        auto
+        17px;
+
+    border:
+        2px solid
+        rgba(255,255,255,.12);
+
+    border-top-color:#4c80ff;
+
+    border-radius:50%;
+
+    animation:
+        spin
+        .8s
+        linear
+        infinite;
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+/* =========================
+   NOTE
+========================= */
+
+.note{
+    text-align:center;
+
+    color:#59657a;
+
+    font-size:10px;
+
+    line-height:1.5;
+
+    margin-top:15px;
+}
+
+
+/* =========================
+   CHECK
+========================= */
+
+.check{
+    margin-top:14px;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    background:#070b13;
+
+    color:#68748b;
+
+    font-size:10px;
+
+    line-height:1.7;
+}
+
+.success{
+    color:#61e3a0;
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="space"></div>
+
+
+<div class="app">
+
+
+<div class="logo">
+    STARK
+</div>
+
+<div class="sub">
+    WALLET · TESTNET
+</div>
+
+
+<!-- ==================================================
+     REGISTRATION
+================================================== -->
+
+<section
+    id="register"
+    class="screen active"
+>
+
+<div class="card">
+
+<div class="status">
+    ● CREATE ACCOUNT
+</div>
+
+
+<h1>
+    Создание аккаунта
+</h1>
+
+
+<p class="desc">
+    Придумай пароль минимум из 6 символов.
+    Он будет использоваться локально
+    в этом браузере.
+</p>
+
+
+<div
+    id="registerError"
+    class="error"
+></div>
+
+
+<input
+    id="password"
+    class="input"
+    type="password"
+    minlength="6"
+    autocomplete="new-password"
+    placeholder="Пароль"
+/>
+
+
+<input
+    id="password2"
+    class="input"
+    type="password"
+    minlength="6"
+    autocomplete="new-password"
+    placeholder="Повторите пароль"
+/>
+
+
+<button
+    id="registerBtn"
+    type="button"
+>
+    Создать аккаунт
+</button>
+
+
+<div class="note">
+    Пароль не отправляется в Telegram
+    и не передаётся на сервер.
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div
+    id="telegramUser"
+    class="user"
+>
+    @user
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ==================================================
+     CREATING
+================================================== -->
+
+<section
+    id="creating"
+    class="screen"
+>
+
+<div class="card">
+
+<div class="loader"></div>
+
+
+<h1>
+    Создание кошелька
+</h1>
+
+
+<p class="desc">
+    Генерируем криптографически случайную
+    seed-фразу и TRON-адрес.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ==================================================
+     SEED
+================================================== -->
+
+<section
+    id="seed"
+    class="screen"
+>
+
+<div class="card">
+
+<div class="status">
+    ● BACKUP WALLET
+</div>
+
+
+<h1>
+    Ваша seed-фраза
+</h1>
+
+
+<p class="desc">
+    Запиши эти 12 слов в правильном порядке.
+    Они понадобятся для восстановления кошелька.
+</p>
+
+
+<div
+    id="seedGrid"
+    class="seed-grid"
+></div>
+
+
+<div class="warning">
+
+⚠️ Никому не отправляй эту фразу.
+Не делай скриншот и не храни её
+в облачных заметках.
+
+</div>
+
+
+<button
+    id="seedSavedBtn"
+    type="button"
+>
+    Я сохранил 12 слов
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ==================================================
+     CONFIRM SEED
+================================================== -->
+
+<section
+    id="confirm"
+    class="screen"
+>
+
+<div class="card">
+
+<div class="status">
+    ● VERIFY BACKUP
+</div>
+
+
+<h1>
+    Проверка seed-фразы
+</h1>
+
+
+<p class="desc">
+    Введи 3 слова, чтобы убедиться,
+    что фраза сохранена правильно.
+</p>
+
+
+<div
+    id="confirmInfo"
+    class="check"
+></div>
+
+
+<input
+    id="word1"
+    class="input"
+    placeholder="Слово"
+    autocomplete="off"
+>
+
+
+<input
+    id="word2"
+    class="input"
+    placeholder="Слово"
+    autocomplete="off"
+>
+
+
+<input
+    id="word3"
+    class="input"
+    placeholder="Слово"
+    autocomplete="off"
+>
+
+
+<div
+    id="confirmError"
+    class="error"
+></div>
+
+
+<button
+    id="confirmBtn"
+    type="button"
+>
+    Подтвердить
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ==================================================
+     WALLET
+================================================== -->
+
+<section
+    id="wallet"
+    class="screen"
+>
+
+
+<div class="card">
+
+<div class="balance-box">
+
+<div class="balance-label">
+    TOTAL BALANCE
+</div>
+
+
+<div class="balance">
+    $0.00
+</div>
+
+
+<div class="network">
+    TRON TESTNET
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="muted">
+    WALLET ADDRESS
+</div>
+
+
+<div
+    id="walletAddress"
+    class="address"
+>
+    —
+</div>
+
+
+<div
+    id="walletCheck"
+    class="check"
+>
+    Проверка...
+</div>
+
+</div>
+
+
+<div class="card">
+
+
+<div class="muted">
+    ASSETS
+</div>
+
+
+<div class="asset">
+
+<div class="asset-left">
+
+<div class="coin">
+    T
+</div>
+
+
+<div>
+
+<div class="asset-name">
+    TRON
+</div>
+
+<div class="asset-small">
+    TRX · TESTNET
+</div>
+
+</div>
+
+</div>
+
+
+<strong>
+    0.000000
+</strong>
+
+</div>
+
+
+<div class="asset">
+
+<div class="asset-left">
+
+<div
+    class="coin"
+    style="background:#008d72"
+>
+    $
+</div>
+
+
+<div>
+
+<div class="asset-name">
+    Tether USD
+</div>
+
+<div class="asset-small">
+    USDT · TRC-20 TESTNET
+</div>
+
+</div>
+
+</div>
+
+
+<strong>
+    0.000000
+</strong>
+
+</div>
+
+
+</div>
+
+
+<div class="card">
+
+<button
+    id="receiveBtn"
+    type="button"
+>
+    Получить
+</button>
+
+
+<button
+    id="lockBtn"
+    class="secondary"
+    type="button"
+    style="margin-top:10px"
+>
+    Заблокировать
+</button>
+
+</div>
+
+
+</section>
+
+
+<!-- ==================================================
+     LOCKED
+================================================== -->
+
+<section
+    id="locked"
+    class="screen"
+>
+
+<div class="card">
+
+<div class="status">
+    ● WALLET LOCKED
+</div>
+
+
+<h1>
+    Кошелёк заблокирован
+</h1>
+
+
+<p class="desc">
+    Введи пароль аккаунта,
+    чтобы открыть кошелёк.
+</p>
+
+
+<div
+    id="unlockError"
+    class="error"
+></div>
+
+
+<input
+    id="unlockPassword"
+    class="input"
+    type="password"
+    autocomplete="current-password"
+    placeholder="Пароль"
+>
+
+
+<button
+    id="unlockBtn"
+    type="button"
+>
+    Разблокировать
+</button>
+
+</div>
+
+</section>
+
+
+</div>
+
+
+<!-- ==================================================
+     TELEGRAM
+================================================== -->
+
+<script
+src="https://telegram.org/js/telegram-web-app.js">
+</script>
+
+
+<!-- ==================================================
+     ETHERS
+     Used for BIP-39 / HD derivation.
+================================================== -->
+
+<script
+src="https://cdn.jsdelivr.net/npm/ethers@6.17.0/dist/ethers.umd.min.js">
+</script>
+
+
+<!-- ==================================================
+     TRONWEB
+================================================== -->
+
+<script
+src="https://cdn.jsdelivr.net/npm/tronweb@6.4.0/dist/TronWeb.js">
+</script>
+
+
+<script>
+
+"use strict";
+
+
+/* ==================================================
+   GLOBAL STATE
+================================================== */
+
+
+var tg =
+    window.Telegram &&
+    window.Telegram.WebApp
+        ? window.Telegram.WebApp
+        : null;
+
+
+var walletData = null;
+
+
+/*
+ * TRON BIP-44 path.
+ *
+ * 195 = TRON.
+ */
+
+var TRON_PATH =
+    "m/44'/195'/0'/0/0";
+
+
+/* ==================================================
+   TELEGRAM
+================================================== */
+
+if(tg){
+
+    tg.ready();
+
+    tg.expand();
+
+}
+
+
+function telegramUser(){
+
+    if(
+        tg &&
+        tg.initDataUnsafe &&
+        tg.initDataUnsafe.user
+    ){
+
+        var user =
+            tg.initDataUnsafe.user;
+
+
+        if(user.username){
+
+            return "@" +
+                user.username;
+
+        }
+
+
+        if(user.first_name){
+
+            return user.first_name;
+
+        }
+
+    }
+
+
+    return "@user";
+
+}
+
+
+document
+    .getElementById(
+        "telegramUser"
+    )
+    .textContent =
+        telegramUser();
+
+
+/* ==================================================
+   SCREEN
+================================================== */
+
+function show(id){
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(
+            function(screen){
+
+                screen.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+    document
+        .getElementById(id)
+        .classList.add("active");
+
+
+    window.scrollTo(0,0);
+
+}
+
+
+/* ==================================================
+   ERROR
+================================================== */
+
+function errorBox(id,message){
+
+    var box =
+        document.getElementById(id);
+
+
+    box.textContent =
+        message;
+
+
+    box.style.display =
+        "block";
+
+}
+
+
+function clearError(id){
+
+    var box =
+        document.getElementById(id);
+
+
+    box.textContent =
+        "";
+
+
+    box.style.display =
+        "none";
+
+}
+
+
+/* ==================================================
+   TRONWEB
+================================================== */
+
+function getTronWeb(){
+
+    var C =
+        null;
+
+
+    if(
+        window.TronWeb &&
+        typeof window.TronWeb.TronWeb ===
+            "function"
+    ){
+
+        C =
+            window.TronWeb.TronWeb;
+
+    }
+
+
+    else if(
+        typeof window.TronWeb ===
+            "function"
+    ){
+
+        C =
+            window.TronWeb;
+
+    }
+
+
+    if(!C){
+
+        throw new Error(
+            "TronWeb не загрузился."
+        );
+
+    }
+
+
+    return new C({
+
+        fullHost:
+            "https://api.shasta.trongrid.io"
+
+    });
+
+}
+
+
+/* ==================================================
+   CREATE TRON ADDRESS FROM PRIVATE KEY
+================================================== */
+
+function privateKeyToTronAddress(
+    privateKey
+){
+
+    var tronWeb =
+        getTronWeb();
+
+
+    /*
+     * TronWeb itself performs the correct
+     * secp256k1 -> TRON address conversion.
+     */
+
+    return tronWeb.address.fromPrivateKey(
+        privateKey
+    );
+
+}
+
+
+/* ==================================================
+   CREATE REAL HD WALLET
+================================================== */
+
+async function createRealWallet(){
+
+    /*
+     * Ethers Wallet.createRandom()
+     * generates a cryptographically random
+     * BIP-39 mnemonic.
+     */
+
+    var root =
+        ethers.Wallet.createRandom();
+
+
+    if(
+        !root.mnemonic ||
+        !root.mnemonic.phrase
+    ){
+
+        throw new Error(
+            "Не удалось создать seed-фразу."
+        );
+
+    }
+
+
+    var mnemonic =
+        root.mnemonic.phrase;
+
+
+    /*
+     * Derive the first account using
+     * the TRON BIP-44 path.
+     */
+
+    var hd =
+        ethers.HDNodeWallet.fromPhrase(
+            mnemonic,
+            undefined,
+            TRON_PATH
+        );
+
+
+    /*
+     * ethers private key is 0x-prefixed.
+     * TronWeb accepts both formats in current
+     * versions.
+     */
+
+    var privateKey =
+        hd.privateKey;
+
+
+    var address =
+        privateKeyToTronAddress(
+            privateKey
+        );
+
+
+    if(
+        !address ||
+        address.length !== 34 ||
+        address.charAt(0) !== "T"
+    ){
+
+        throw new Error(
+            "Получен некорректный TRON-адрес."
+        );
+
+    }
+
+
+    /*
+     * IMPORTANT:
+     *
+     * privateKey is kept only in memory
+     * in this test version.
+     *
+     * It is NOT sent to Telegram.
+     * It is NOT written to GitHub.
+     */
+
+    return {
+
+        mnemonic:
+            mnemonic,
+
+        privateKey:
+            privateKey,
+
+        address:
+            address
+
+    };
+
+}
+
+
+/* ==================================================
+   SEED DISPLAY
+================================================== */
+
+function displaySeed(mnemonic){
+
+    var words =
+        mnemonic
+            .trim()
+            .split(/\s+/);
+
+
+    var grid =
+        document.getElementById(
+            "seedGrid"
+        );
+
+
+    grid.innerHTML =
+        "";
+
+
+    words.forEach(
+        function(word,index){
+
+            var item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "seed-word";
+
+
+            item.innerHTML =
+                '<span class="seed-number">' +
+                (index + 1) +
+                '</span>' +
+                word;
+
+
+            grid.appendChild(item);
+
+        }
+    );
+
+}
+
+
+/* ==================================================
+   RANDOM CHECK WORDS
+================================================== */
+
+function chooseCheckPositions(){
+
+    var positions = [];
+
+
+    while(
+        positions.length < 3
+    ){
+
+        var n =
+            Math.floor(
+                Math.random() * 12
+            );
+
+
+        if(
+            positions.indexOf(n) ===
+                -1
+        ){
+
+            positions.push(n);
+
+        }
+
+    }
+
+
+    positions.sort(
+        function(a,b){
+            return a-b;
+        }
+    );
+
+
+    return positions;
+
+}
+
+
+/* ==================================================
+   SHOW CONFIRMATION
+================================================== */
+
+function prepareConfirmation(){
+
+    var words =
+        walletData.mnemonic
+            .trim()
+            .split(/\s+/);
+
+
+    var positions =
+        chooseCheckPositions();
+
+
+    walletData.checkPositions =
+        positions;
+
+
+    document
+        .getElementById(
+            "confirmInfo"
+        )
+        .textContent =
+
+        "Введи слова №" +
+        (positions[0] + 1) +
+        ", №" +
+        (positions[1] + 1) +
+        " и №" +
+        (positions[2] + 1) +
+        ".";
+
+}
+
+
+/* ==================================================
+   VERIFY SEED
+================================================== */
+
+function verifySeed(){
+
+    clearError(
+        "confirmError"
+    );
+
+
+    var words =
+        walletData.mnemonic
+            .trim()
+            .split(/\s+/);
+
+
+    var positions =
+        walletData.checkPositions;
+
+
+    var entered = [
+
+        document
+            .getElementById("word1")
+            .value
+            .trim()
+            .toLowerCase(),
+
+        document
+            .getElementById("word2")
+            .value
+            .trim()
+            .toLowerCase(),
+
+        document
+            .getElementById("word3")
+            .value
+            .trim()
+            .toLowerCase()
+
+    ];
+
+
+    var expected = [
+
+        words[positions[0]]
+            .toLowerCase(),
+
+        words[positions[1]]
+            .toLowerCase(),
+
+        words[positions[2]]
+            .toLowerCase()
+
+    ];
+
+
+    if(
+        entered[0] !== expected[0] ||
+        entered[1] !== expected[1] ||
+        entered[2] !== expected[2]
+    ){
+
+        errorBox(
+            "confirmError",
+            "Одно или несколько слов введены неправильно."
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Verification succeeded.
+     */
+
+    openWallet();
+
+}
+
+
+/* ==================================================
+   OPEN WALLET
+================================================== */
+
+function openWallet(){
+
+    document
+        .getElementById(
+            "walletAddress"
+        )
+        .textContent =
+            walletData.address;
+
+
+    var valid =
+        walletData.address.length === 34 &&
+        walletData.address.charAt(0) === "T";
+
+
+    document
+        .getElementById(
+            "walletCheck"
+        )
+        .innerHTML =
+
+        valid
+
+        ?
+
+        '<span class="success">' +
+        '✓ Адрес успешно проверен' +
+        '</span><br>' +
+        '✓ TRON Base58Check<br>' +
+        '✓ 34 символа<br>' +
+        '✓ Начинается с T<br>' +
+        '✓ BIP-44: ' +
+        TRON_PATH
+
+        :
+
+        "Ошибка проверки адреса.";
+
+
+    show("wallet");
+
+}
+
+
+/* ==================================================
+   REGISTER
+================================================== */
+
+document
+    .getElementById(
+        "registerBtn"
+    )
+    .addEventListener(
+        "click",
+        async function(){
+
+            clearError(
+                "registerError"
+            );
+
+
+            var password =
+                document
+                    .getElementById(
+                        "password"
+                    )
+                    .value;
+
+
+            var password2 =
+                document
+                    .getElementById(
+                        "password2"
+                    )
+                    .value;
+
+
+            if(
+                password.length < 6
+            ){
+
+                errorBox(
+                    "registerError",
+                    "Пароль должен содержать минимум 6 символов."
+                );
+
+                return;
+
+            }
+
+
+            if(
+                password !== password2
+            ){
+
+                errorBox(
+                    "registerError",
+                    "Пароли не совпадают."
+                );
+
+                return;
+
+            }
+
+
+            var button =
+                document
+                    .getElementById(
+                        "registerBtn"
+                    );
+
+
+            button.disabled =
+                true;
+
+
+            button.textContent =
+                "Создание...";
+
+
+            show("creating");
+
+
+            try{
+
+                walletData =
+                    await createRealWallet();
+
+
+                /*
+                 * Password is NOT stored.
+                 * For this test build it only
+                 * validates registration.
+                 */
+
+                displaySeed(
+                    walletData.mnemonic
+                );
+
+
+                show("seed");
+
+
+            }
+            catch(error){
+
+                console.error(
+                    error
+                );
+
+
+                show("register");
+
+
+                errorBox(
+                    "registerError",
+                    error.message ||
+                    "Не удалось создать кошелёк."
+                );
+
+            }
+            finally{
+
+                button.disabled =
+                    false;
+
+
+                button.textContent =
+                    "Создать аккаунт";
+
+            }
+
+        }
+    );
+
+
+/* ==================================================
+   SEED SAVED
+================================================== */
+
+document
+    .getElementById(
+        "seedSavedBtn"
+    )
+    .addEventListener(
+        "click",
+        function(){
+
+            prepareConfirmation();
+
+            show("confirm");
+
+        }
+    );
+
+
+/* ==================================================
+   CONFIRM
+================================================== */
+
+document
+    .getElementById(
+        "confirmBtn"
+    )
+    .addEventListener(
+        "click",
+        verifySeed
+    );
+
+
+/* ==================================================
+   RECEIVE
+================================================== */
+
+document
+    .getElementById(
+        "receiveBtn"
+    )
+    .addEventListener(
+        "click",
+        function(){
+
+            if(
+                !walletData
+            ){
+
+                return;
+
+            }
+
+
+            alert(
+                "Ваш TRON-адрес:\n\n" +
+                walletData.address
+            );
+
+        }
+    );
+
+
+/* ==================================================
+   LOCK
+================================================== */
+
+document
+    .getElementById(
+        "lockBtn"
+    )
+    .addEventListener(
+        "click",
+        function(){
+
+            /*
+             * Destroy sensitive in-memory data.
+             */
+
+            walletData =
+                null;
+
+
+            show("locked");
+
+        }
+    );
+
+
+/* ==================================================
+   UNLOCK
+================================================== */
+
+document
+    .getElementById(
+        "unlockBtn"
+    )
+    .addEventListener(
+        "click",
+        function(){
+
+            /*
+             * This version deliberately does NOT
+             * persist the seed/private key.
+             *
+             * Therefore after locking/reloading,
+             * the wallet cannot be reconstructed.
+             *
+             * Full encrypted local storage will be
+             * added in the next version.
+             */
+
+            errorBox(
+                "unlockError",
+                "Для этой тестовой версии восстановление после блокировки ещё не включено. Следующий этап — зашифрованное локальное хранилище."
+            );
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
