@@ -1,0 +1,790 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #080a0f;
+  --card: #10131a;
+  --card-hover: #141821;
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #ffffff;
+  --muted: #8d95a5;
+  --muted-2: #626a79;
+  --accent: #ffffff;
+  --danger: #ff5c5c;
+  --success: #62d98b;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(255, 255, 255, 0.08),
+      transparent 35%
+    ),
+    var(--bg);
+
+  color: var(--text);
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    Inter,
+    Arial,
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* =========================
+   APP
+========================= */
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+
+  padding: 28px 18px 60px;
+}
+
+.screen {
+  width: 100%;
+  max-width: 520px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================
+   AUTH
+========================= */
+
+#authScreen {
+  padding-top: 8vh;
+}
+
+.logo {
+  width: 54px;
+  height: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 16px;
+
+  background: #ffffff;
+  color: #080a0f;
+
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+
+  margin-bottom: 24px;
+
+  box-shadow:
+    0 10px 40px
+    rgba(255, 255, 255, 0.08);
+}
+
+h1 {
+  margin: 0;
+
+  font-size: 36px;
+  line-height: 1.05;
+
+  letter-spacing: -1.5px;
+}
+
+.subtitle {
+  margin: 10px 0 28px;
+
+  color: var(--muted);
+
+  font-size: 15px;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card,
+.walletCard {
+  width: 100%;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.045),
+      rgba(255,255,255,0.018)
+    );
+
+  border: 1px solid var(--border);
+
+  border-radius: 22px;
+
+  padding: 22px;
+
+  box-shadow:
+    0 20px 70px
+    rgba(0, 0, 0, 0.24);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.walletCard {
+  margin-top: 14px;
+}
+
+/* =========================
+   FORM
+========================= */
+
+label {
+  display: block;
+
+  margin-bottom: 9px;
+
+  color: var(--muted);
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+input {
+  width: 100%;
+
+  height: 54px;
+
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  outline: none;
+
+  background: rgba(255, 255, 255, 0.045);
+
+  color: var(--text);
+
+  padding: 0 16px;
+
+  font-size: 15px;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+input::placeholder {
+  color: var(--muted-2);
+}
+
+input:focus {
+  border-color:
+    rgba(255, 255, 255, 0.25);
+
+  background:
+    rgba(255, 255, 255, 0.065);
+
+  box-shadow:
+    0 0 0 4px
+    rgba(255, 255, 255, 0.035);
+}
+
+button {
+  border: 0;
+
+  border-radius: 14px;
+
+  min-height: 52px;
+
+  padding: 0 18px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease,
+    background 0.15s ease;
+}
+
+button:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+#sendCodeButton,
+#verifyCodeButton {
+  width: 100%;
+
+  margin-top: 14px;
+
+  background: #ffffff;
+  color: #080a0f;
+}
+
+#sendCodeButton:hover,
+#verifyCodeButton:hover {
+  background: #e8e8e8;
+}
+
+/* =========================
+   SECONDARY BUTTON
+========================= */
+
+.secondaryButton {
+  background:
+    rgba(255, 255, 255, 0.055);
+
+  color: var(--text);
+
+  border: 1px solid var(--border);
+
+  min-height: 42px;
+
+  font-size: 12px;
+}
+
+.secondaryButton:hover {
+  background:
+    rgba(255, 255, 255, 0.09);
+}
+
+/* =========================
+   CODE
+========================= */
+
+.backRow {
+  margin-bottom: 18px;
+}
+
+.backButton {
+  min-height: auto;
+
+  padding: 0;
+
+  background: transparent;
+
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+.backButton:hover {
+  color: var(--text);
+}
+
+.codeInfo {
+  margin: 0 0 5px;
+
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+#emailPreview {
+  display: block;
+
+  margin-bottom: 25px;
+
+  font-size: 15px;
+
+  word-break: break-word;
+}
+
+#code {
+  text-align: center;
+
+  letter-spacing: 8px;
+
+  font-size: 24px;
+  font-weight: 700;
+}
+
+#resendButton {
+  width: 100%;
+
+  margin-top: 10px;
+}
+
+.timer {
+  min-height: 17px;
+
+  margin: 10px 0 0;
+
+  text-align: center;
+
+  color: var(--muted-2);
+
+  font-size: 11px;
+}
+
+.message {
+  min-height: 22px;
+
+  margin-top: 14px;
+
+  color: var(--muted);
+
+  text-align: center;
+
+  font-size: 13px;
+
+  line-height: 1.45;
+}
+
+/* =========================
+   WALLET HEADER
+========================= */
+
+.walletHeader {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  margin-bottom: 14px;
+}
+
+.walletHeader h2 {
+  margin: 4px 0 0;
+
+  font-size: 25px;
+
+  letter-spacing: -0.7px;
+}
+
+.small {
+  color: var(--muted);
+
+  font-size: 11px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1.5px;
+}
+
+.logoutButton {
+  min-height: 40px;
+
+  background:
+    rgba(255, 255, 255, 0.045);
+
+  color: var(--muted);
+
+  border: 1px solid var(--border);
+
+  font-size: 12px;
+}
+
+.logoutButton:hover {
+  color: var(--text);
+
+  background:
+    rgba(255, 255, 255, 0.08);
+}
+
+/* =========================
+   BALANCE
+========================= */
+
+.balanceCard {
+  text-align: center;
+
+  padding: 28px 22px;
+}
+
+.balanceLabel {
+  display: block;
+
+  color: var(--muted);
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.8px;
+}
+
+.mainBalance {
+  display: flex;
+
+  align-items: baseline;
+  justify-content: center;
+
+  gap: 8px;
+
+  margin: 7px 0 8px;
+}
+
+.mainBalance strong {
+  font-size: 42px;
+
+  line-height: 1;
+
+  letter-spacing: -1.5px;
+}
+
+.mainBalance span {
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+.networkLine {
+  margin-bottom: 17px;
+
+  color: var(--muted-2);
+
+  font-size: 10px;
+
+  letter-spacing: 0.7px;
+}
+
+.balanceCard
+.secondaryButton {
+  min-width: 160px;
+}
+
+/* =========================
+   ACCOUNT
+========================= */
+
+.walletCard > span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: var(--muted);
+
+  font-size: 11px;
+
+  letter-spacing: 0.5px;
+}
+
+#walletEmail {
+  display: block;
+
+  font-size: 15px;
+
+  word-break: break-word;
+}
+
+.verified {
+  display: inline-flex;
+
+  align-items: center;
+
+  margin-top: 11px;
+
+  padding: 6px 9px;
+
+  border-radius: 8px;
+
+  background:
+    rgba(98, 217, 139, 0.08);
+
+  color: var(--success);
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+/* =========================
+   TRON ADDRESS
+========================= */
+
+.walletInfo {
+  margin-top: 0;
+}
+
+.infoTitle {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: var(--muted);
+
+  font-size: 11px;
+
+  letter-spacing: 0.7px;
+}
+
+.addressRow {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.addressRow code {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 12px;
+
+  border-radius: 11px;
+
+  background:
+    rgba(255, 255, 255, 0.035);
+
+  color: #d9dde5;
+
+  font-family:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    monospace;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}
+
+.copyButton {
+  flex: 0 0 auto;
+
+  white-space: nowrap;
+}
+
+.walletInfo small {
+  display: block;
+
+  margin-top: 9px;
+
+  color: var(--muted-2);
+
+  font-size: 10px;
+}
+
+/* =========================
+   ASSETS
+========================= */
+
+.assetsCard {
+  padding-bottom: 12px;
+}
+
+.assetRow {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 14px;
+
+  min-height: 66px;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.055);
+}
+
+.assetRow:last-of-type {
+  border-bottom: 0;
+}
+
+.assetLeft {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  min-width: 0;
+}
+
+.assetLeft strong {
+  display: block;
+
+  font-size: 14px;
+}
+
+.assetLeft small {
+  display: block;
+
+  margin-top: 4px;
+
+  color: var(--muted-2);
+
+  font-size: 10px;
+}
+
+.assetCoin {
+  width: 38px;
+  height: 38px;
+
+  flex: 0 0 38px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.08);
+
+  color: white;
+
+  font-weight: 800;
+}
+
+.assetCoin.usdt {
+  background:
+    rgba(255, 255, 255, 0.12);
+}
+
+.assetRow > strong {
+  font-size: 14px;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.balanceStatus {
+  margin-top: 12px;
+
+  padding: 9px 11px;
+
+  border-radius: 9px;
+
+  background:
+    rgba(255, 255, 255, 0.025);
+
+  color: var(--muted-2);
+
+  font-size: 10px;
+
+  line-height: 1.45;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+  .app {
+    padding:
+      18px
+      13px
+      40px;
+  }
+
+  #authScreen {
+    padding-top: 5vh;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .card,
+  .walletCard {
+    border-radius: 19px;
+
+    padding: 18px;
+  }
+
+  .mainBalance strong {
+    font-size: 36px;
+  }
+
+  .walletHeader h2 {
+    font-size: 22px;
+  }
+
+  .addressRow {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .copyButton {
+    width: 100%;
+  }
+
+  .assetRow {
+    min-height: 64px;
+  }
+}
+
+@media (max-width: 380px) {
+
+  .app {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .card,
+  .walletCard {
+    padding: 16px;
+  }
+
+  .mainBalance strong {
+    font-size: 32px;
+  }
+
+  .assetLeft strong {
+    font-size: 13px;
+  }
+}
+
+/* =========================
+   LIGHT TOUCH ANIMATIONS
+========================= */
+
+.walletCard,
+.card {
+  animation:
+    cardAppear 0.35s ease both;
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
