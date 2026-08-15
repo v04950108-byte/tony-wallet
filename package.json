@@ -1,0 +1,22 @@
+{
+  "name": "tony-wallet",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TONY Wallet with email verification",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.4.1",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.0.1",
+    "nodemailer": "^7.0.5"
+  }
+}
